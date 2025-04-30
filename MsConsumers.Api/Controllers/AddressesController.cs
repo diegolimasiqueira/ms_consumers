@@ -1,6 +1,5 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using MsConsumers.Application.Commands.Address;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,17 +13,14 @@ namespace MsConsumers.Api.Controllers;
 public class AddressesController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly ILogger<AddressesController> _logger;
 
     /// <summary>
     /// Inicializa uma nova instância do AddressesController
     /// </summary>
     /// <param name="mediator">Mediador para processamento de comandos</param>
-    /// <param name="logger">Logger para rastreamento de eventos</param>
-    public AddressesController(IMediator mediator, ILogger<AddressesController> logger)
+    public AddressesController(IMediator mediator)
     {
         _mediator = mediator;
-        _logger = logger;
     }
 
     /// <summary>
@@ -43,22 +39,8 @@ public class AddressesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Create([FromBody] CreateAddressCommand command)
     {
-        try
-        {
-            _logger.LogInformation("Iniciando criação de endereço para o consumidor {ConsumerId}", command.ConsumerId);
-            _logger.LogDebug("Dados do endereço: {@Command}", command);
-
-            var result = await _mediator.Send(command);
-
-            _logger.LogInformation("Endereço criado com sucesso. ID: {AddressId}", result.Id);
-            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Erro ao criar endereço para o consumidor {ConsumerId}. Detalhes: {Message}", 
-                command.ConsumerId, ex.Message);
-            throw;
-        }
+        var result = await _mediator.Send(command);
+        return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
 
     /// <summary>
@@ -75,28 +57,15 @@ public class AddressesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetById(Guid id)
     {
-        try
-        {
-            _logger.LogInformation("Buscando endereço pelo ID: {AddressId}", id);
-            
-            var command = new GetAddressByIdCommand { Id = id };
-            var result = await _mediator.Send(command);
+        var command = new GetAddressByIdCommand { Id = id };
+        var result = await _mediator.Send(command);
 
-            if (result == null)
-            {
-                _logger.LogWarning("Endereço não encontrado para o ID: {AddressId}", id);
-                return NotFound();
-            }
-
-            _logger.LogInformation("Endereço encontrado: {@Address}", result);
-            return Ok(result);
-        }
-        catch (Exception ex)
+        if (result == null)
         {
-            _logger.LogError(ex, "Erro ao buscar endereço pelo ID {AddressId}. Detalhes: {Message}", 
-                id, ex.Message);
-            throw;
+            return NotFound();
         }
+
+        return Ok(result);
     }
 
     /// <summary>
@@ -111,22 +80,38 @@ public class AddressesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetByConsumerId([Required] Guid consumerId)
     {
-        try
-        {
-            _logger.LogInformation("Buscando endereços do consumidor {ConsumerId}", consumerId);
-            
-            var command = new GetAddressesByConsumerIdCommand { ConsumerId = consumerId };
-            var result = await _mediator.Send(command);
+        var command = new GetAddressesByConsumerIdCommand { ConsumerId = consumerId };
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
 
-            _logger.LogInformation("Encontrados {Count} endereços para o consumidor {ConsumerId}", 
-                result.Count(), consumerId);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Erro ao buscar endereços do consumidor {ConsumerId}. Detalhes: {Message}", 
-                consumerId, ex.Message);
-            throw;
-        }
+    /// <summary>
+    /// Atualiza um endereço existente
+    /// </summary>
+    /// <param name="command">Comando de atualização de endereço</param>
+    /// <returns>O endereço atualizado</returns>
+    [HttpPut]
+    [ProducesResponseType(typeof(UpdateAddressCommandResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<UpdateAddressCommandResponse>> Update([FromBody] UpdateAddressCommand command)
+    {
+        var response = await _mediator.Send(command);
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// Deleta um endereço existente
+    /// </summary>
+    /// <param name="id">ID do endereço a ser deletado</param>
+    /// <returns>No content</returns>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var command = new DeleteAddressCommand { Id = id };
+        await _mediator.Send(command);
+        return NoContent();
     }
 } 

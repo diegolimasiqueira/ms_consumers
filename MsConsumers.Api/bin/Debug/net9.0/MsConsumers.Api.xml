@@ -9,12 +9,11 @@
             Controller responsável por gerenciar endereços
             </summary>
         </member>
-        <member name="M:MsConsumers.Api.Controllers.AddressesController.#ctor(MediatR.IMediator,Microsoft.Extensions.Logging.ILogger{MsConsumers.Api.Controllers.AddressesController})">
+        <member name="M:MsConsumers.Api.Controllers.AddressesController.#ctor(MediatR.IMediator)">
             <summary>
             Inicializa uma nova instância do AddressesController
             </summary>
             <param name="mediator">Mediador para processamento de comandos</param>
-            <param name="logger">Logger para rastreamento de eventos</param>
         </member>
         <member name="M:MsConsumers.Api.Controllers.AddressesController.Create(MsConsumers.Application.Commands.Address.CreateAddressCommand)">
             <summary>
@@ -45,6 +44,20 @@
             <returns>Lista de endereços do consumidor</returns>
             <response code="200">Retorna a lista de endereços</response>
             <response code="500">Se ocorrer um erro interno</response>
+        </member>
+        <member name="M:MsConsumers.Api.Controllers.AddressesController.Update(MsConsumers.Application.Commands.Address.UpdateAddressCommand)">
+            <summary>
+            Atualiza um endereço existente
+            </summary>
+            <param name="command">Comando de atualização de endereço</param>
+            <returns>O endereço atualizado</returns>
+        </member>
+        <member name="M:MsConsumers.Api.Controllers.AddressesController.Delete(System.Guid)">
+            <summary>
+            Deleta um endereço existente
+            </summary>
+            <param name="id">ID do endereço a ser deletado</param>
+            <returns>No content</returns>
         </member>
         <member name="T:MsConsumers.Api.Controllers.ConsumersController">
             <summary>
