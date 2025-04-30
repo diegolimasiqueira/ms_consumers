@@ -1,0 +1,11 @@
+E:\git\ms_consumers\MsConsumers.Shared\bin\Debug\net9.0\MsConsumers.Shared.deps.json
+E:\git\ms_consumers\MsConsumers.Shared\bin\Debug\net9.0\MsConsumers.Shared.dll
+E:\git\ms_consumers\MsConsumers.Shared\bin\Debug\net9.0\MsConsumers.Shared.pdb
+E:\git\ms_consumers\MsConsumers.Shared\obj\Debug\net9.0\MsConsumers.Shared.GeneratedMSBuildEditorConfig.editorconfig
+E:\git\ms_consumers\MsConsumers.Shared\obj\Debug\net9.0\MsConsumers.Shared.AssemblyInfoInputs.cache
+E:\git\ms_consumers\MsConsumers.Shared\obj\Debug\net9.0\MsConsumers.Shared.AssemblyInfo.cs
+E:\git\ms_consumers\MsConsumers.Shared\obj\Debug\net9.0\MsConsumers.Shared.csproj.CoreCompileInputs.cache
+E:\git\ms_consumers\MsConsumers.Shared\obj\Debug\net9.0\MsConsumers.Shared.dll
+E:\git\ms_consumers\MsConsumers.Shared\obj\Debug\net9.0\refint\MsConsumers.Shared.dll
+E:\git\ms_consumers\MsConsumers.Shared\obj\Debug\net9.0\MsConsumers.Shared.pdb
+E:\git\ms_consumers\MsConsumers.Shared\obj\Debug\net9.0\ref\MsConsumers.Shared.dll

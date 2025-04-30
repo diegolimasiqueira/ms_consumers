@@ -1,0 +1,11 @@
+E:\git\ms_consumers\MsConsumers.Domain\bin\Debug\net9.0\MsConsumers.Domain.deps.json
+E:\git\ms_consumers\MsConsumers.Domain\bin\Debug\net9.0\MsConsumers.Domain.dll
+E:\git\ms_consumers\MsConsumers.Domain\bin\Debug\net9.0\MsConsumers.Domain.pdb
+E:\git\ms_consumers\MsConsumers.Domain\obj\Debug\net9.0\MsConsumers.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\git\ms_consumers\MsConsumers.Domain\obj\Debug\net9.0\MsConsumers.Domain.AssemblyInfoInputs.cache
+E:\git\ms_consumers\MsConsumers.Domain\obj\Debug\net9.0\MsConsumers.Domain.AssemblyInfo.cs
+E:\git\ms_consumers\MsConsumers.Domain\obj\Debug\net9.0\MsConsumers.Domain.csproj.CoreCompileInputs.cache
+E:\git\ms_consumers\MsConsumers.Domain\obj\Debug\net9.0\MsConsumers.Domain.dll
+E:\git\ms_consumers\MsConsumers.Domain\obj\Debug\net9.0\refint\MsConsumers.Domain.dll
+E:\git\ms_consumers\MsConsumers.Domain\obj\Debug\net9.0\MsConsumers.Domain.pdb
+E:\git\ms_consumers\MsConsumers.Domain\obj\Debug\net9.0\ref\MsConsumers.Domain.dll
