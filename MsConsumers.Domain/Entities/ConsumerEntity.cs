@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace MsConsumers.Domain.Entities
 {
@@ -8,8 +9,8 @@ namespace MsConsumers.Domain.Entities
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public string DocumentId { get; private set; }
-        public string PhotoUrl { get; private set; }
-        public string PhoneNumber { get; private set; }
+        public string? PhotoUrl { get; private set; }
+        public string? PhoneNumber { get; private set; }
         public string Email { get; private set; }
         public Guid CurrencyId { get; private set; }
         public Guid PhoneCountryCodeId { get; private set; }
@@ -18,12 +19,18 @@ namespace MsConsumers.Domain.Entities
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
+        // Propriedades de navegação
+        public Currency? Currency { get; private set; }
+        public CountryCode? PhoneCountryCode { get; private set; }
+        public Language? PreferredLanguage { get; private set; }
+        public TimeZone? Timezone { get; private set; }
+        public ICollection<AddressEntity> Addresses { get; private set; } = new List<AddressEntity>();
+
         public ConsumerEntity(
-            Guid id,
             string name,
             string documentId,
-            string photoUrl,
-            string phoneNumber,
+            string? photoUrl,
+            string? phoneNumber,
             string email,
             Guid currencyId,
             Guid phoneCountryCodeId,
@@ -37,7 +44,7 @@ namespace MsConsumers.Domain.Entities
             ValidateEmail(email);
             ValidateIds(currencyId, phoneCountryCodeId, preferredLanguageId, timezoneId);
 
-            Id = id;
+            Id = Guid.NewGuid();
             Name = name;
             DocumentId = documentId;
             PhotoUrl = photoUrl;
@@ -54,8 +61,8 @@ namespace MsConsumers.Domain.Entities
         public void Update(
             string name,
             string documentId,
-            string photoUrl,
-            string phoneNumber,
+            string? photoUrl,
+            string? phoneNumber,
             string email,
             Guid currencyId,
             Guid phoneCountryCodeId,
@@ -99,18 +106,15 @@ namespace MsConsumers.Domain.Entities
                 throw new ArgumentException("Document ID cannot be longer than 50 characters", nameof(documentId));
         }
 
-        private void ValidatePhotoUrl(string photoUrl)
+        private void ValidatePhotoUrl(string? photoUrl)
         {
-            if (!string.IsNullOrWhiteSpace(photoUrl) && photoUrl.Length > 500)
+            if (photoUrl != null && photoUrl.Length > 500)
                 throw new ArgumentException("Photo URL cannot be longer than 500 characters", nameof(photoUrl));
         }
 
-        private void ValidatePhoneNumber(string phoneNumber)
+        private void ValidatePhoneNumber(string? phoneNumber)
         {
-            if (string.IsNullOrWhiteSpace(phoneNumber))
-                throw new ArgumentException("Phone number cannot be empty", nameof(phoneNumber));
-            
-            if (phoneNumber.Length > 20)
+            if (phoneNumber != null && phoneNumber.Length > 20)
                 throw new ArgumentException("Phone number cannot be longer than 20 characters", nameof(phoneNumber));
         }
 

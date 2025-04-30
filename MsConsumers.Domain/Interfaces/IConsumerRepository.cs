@@ -7,7 +7,7 @@ namespace MsConsumers.Domain.Interfaces
 {
     public interface IConsumerRepository
     {
-        Task<ConsumerEntity> GetByIdAsync(Guid id);
+        Task<ConsumerEntity?> GetByIdAsync(Guid id);
         Task<IEnumerable<ConsumerEntity>> GetAllAsync();
         Task AddAsync(ConsumerEntity consumer);
         Task UpdateAsync(ConsumerEntity consumer);

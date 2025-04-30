@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using MsConsumers.Domain.Entities;
+using MsConsumers.Domain.Exceptions;
 using MsConsumers.Domain.Interfaces;
 
 namespace MsConsumers.Application.Commands.Consumer
@@ -19,17 +20,15 @@ namespace MsConsumers.Application.Commands.Consumer
         public async Task<CreateConsumerCommandResponse> Handle(CreateConsumerCommand request, CancellationToken cancellationToken)
         {
             var consumer = new ConsumerEntity(
-                id: Guid.NewGuid(),
-                name: request.Name,
-                documentId: request.DocumentId,
-                photoUrl: request.PhotoUrl,
-                phoneNumber: request.PhoneNumber,
-                email: request.Email,
-                currencyId: request.CurrencyId,
-                phoneCountryCodeId: request.PhoneCountryCodeId,
-                preferredLanguageId: request.PreferredLanguageId,
-                timezoneId: request.TimezoneId
-            );
+                request.Name,
+                request.DocumentId,
+                request.PhotoUrl,
+                request.PhoneNumber,
+                request.Email,
+                request.CurrencyId,
+                request.PhoneCountryCodeId,
+                request.PreferredLanguageId,
+                request.TimezoneId);
 
             await _consumerRepository.AddAsync(consumer);
 
@@ -45,7 +44,8 @@ namespace MsConsumers.Application.Commands.Consumer
                 PhoneCountryCodeId = consumer.PhoneCountryCodeId,
                 PreferredLanguageId = consumer.PreferredLanguageId,
                 TimezoneId = consumer.TimezoneId,
-                CreatedAt = consumer.CreatedAt
+                CreatedAt = consumer.CreatedAt,
+                UpdatedAt = consumer.UpdatedAt
             };
         }
     }

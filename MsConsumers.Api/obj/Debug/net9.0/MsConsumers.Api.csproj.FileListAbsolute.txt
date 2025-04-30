@@ -141,3 +141,5 @@ E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swag
 E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MediatR.dll
 E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MediatR.Contracts.dll
 E:\git\ms_consumers\MsConsumers.Api\obj\Debug\net9.0\MsConsumers.Api.sourcelink.json
+E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MsConsumers.Api.xml
+E:\git\ms_consumers\MsConsumers.Api\obj\Debug\net9.0\MsConsumers.Api.xml

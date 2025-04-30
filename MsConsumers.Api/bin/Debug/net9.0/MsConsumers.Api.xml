@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MsConsumers.Api</name>
+    </assembly>
+    <members>
+        <member name="T:MsConsumers.Api.Controllers.AddressesController">
+            <summary>
+            Controller responsável por gerenciar endereços
+            </summary>
+        </member>
+        <member name="M:MsConsumers.Api.Controllers.AddressesController.#ctor(MediatR.IMediator,Microsoft.Extensions.Logging.ILogger{MsConsumers.Api.Controllers.AddressesController})">
+            <summary>
+            Inicializa uma nova instância do AddressesController
+            </summary>
+            <param name="mediator">Mediador para processamento de comandos</param>
+            <param name="logger">Logger para rastreamento de eventos</param>
+        </member>
+        <member name="M:MsConsumers.Api.Controllers.AddressesController.Create(MsConsumers.Application.Commands.Address.CreateAddressCommand)">
+            <summary>
+            Cria um novo endereço
+            </summary>
+            <param name="command">Dados do endereço a ser criado</param>
+            <returns>O endereço criado</returns>
+            <response code="201">Retorna o endereço recém-criado</response>
+            <response code="400">Se os dados do endereço forem inválidos</response>
+            <response code="404">Se o consumidor não for encontrado</response>
+            <response code="500">Se ocorrer um erro interno</response>
+        </member>
+        <member name="M:MsConsumers.Api.Controllers.AddressesController.GetById(System.Guid)">
+            <summary>
+            Gets an address by ID
+            </summary>
+            <param name="id">The address ID</param>
+            <returns>The address details</returns>
+            <response code="200">Returns the address details</response>
+            <response code="404">If the address is not found</response>
+            <response code="500">Se ocorrer um erro interno</response>
+        </member>
+        <member name="M:MsConsumers.Api.Controllers.AddressesController.GetByConsumerId(System.Guid)">
+            <summary>
+            Obtém todos os endereços de um consumidor
+            </summary>
+            <param name="consumerId">ID do consumidor</param>
+            <returns>Lista de endereços do consumidor</returns>
+            <response code="200">Retorna a lista de endereços</response>
+            <response code="500">Se ocorrer um erro interno</response>
+        </member>
+        <member name="T:MsConsumers.Api.Controllers.ConsumersController">
+            <summary>
+            Controller responsible for managing consumer operations
+            </summary>
+        </member>
+        <member name="M:MsConsumers.Api.Controllers.ConsumersController.#ctor(MediatR.IMediator)">
+            <summary>
+            Initializes a new instance of the ConsumersController
+            </summary>
+            <param name="mediator">Mediator for command processing</param>
+        </member>
+        <member name="M:MsConsumers.Api.Controllers.ConsumersController.Create(MsConsumers.Application.Commands.Consumer.CreateConsumerCommand)">
+            <summary>
+            Creates a new consumer
+            </summary>
+            <param name="command">Consumer data to be created</param>
+            <returns>The created consumer with its ID</returns>
+            <response code="201">Returns the newly created consumer</response>
+            <response code="400">If the consumer data is invalid</response>
+            <response code="500">If an internal server error occurs</response>
+        </member>
+        <member name="M:MsConsumers.Api.Controllers.ConsumersController.GetById(System.Guid)">
+            <summary>
+            Gets a consumer by its ID
+            </summary>
+            <param name="id">Consumer ID</param>
+            <returns>The found consumer</returns>
+            <response code="200">Returns the requested consumer</response>
+            <response code="404">If the consumer is not found</response>
+            <response code="500">If an internal server error occurs</response>
+        </member>
+        <member name="M:MsConsumers.Api.Controllers.ConsumersController.Delete(System.Guid)">
+            <summary>
+            Deletes a consumer by its ID
+            </summary>
+            <param name="id">Consumer ID</param>
+            <returns>No content</returns>
+            <response code="204">If the consumer was successfully deleted</response>
+            <response code="404">If the consumer is not found</response>
+            <response code="500">If an internal server error occurs</response>
+        </member>
+        <member name="M:MsConsumers.Api.Controllers.ConsumersController.Update(System.Guid,MsConsumers.Application.Commands.Consumer.UpdateConsumerCommand)">
+            <summary>
+            Atualiza um consumidor existente
+            </summary>
+            <param name="id">ID do consumidor</param>
+            <param name="command">Dados do consumidor para atualização</param>
+            <returns>O consumidor atualizado</returns>
+            <response code="200">Retorna o consumidor atualizado</response>
+            <response code="400">Se o ID não for fornecido ou os dados forem inválidos</response>
+            <response code="404">Se o consumidor não for encontrado</response>
+            <response code="500">Se ocorrer um erro interno</response>
+        </member>
+    </members>
+</doc>

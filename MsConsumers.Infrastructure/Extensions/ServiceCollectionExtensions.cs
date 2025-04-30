@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MsConsumers.Domain.Interfaces;
 using MsConsumers.Infrastructure.Configurations;
 using MsConsumers.Infrastructure.Data;
+using MsConsumers.Infrastructure.Repositories;
 
 namespace MsConsumers.Infrastructure.Extensions;
 
@@ -19,6 +21,9 @@ public static class ServiceCollectionExtensions
             options.UseNpgsql(
                 databaseSettings.GetConnectionString(),
                 b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+
+        services.AddScoped<IConsumerRepository, ConsumerRepository>();
+        services.AddScoped<IAddressRepository, AddressRepository>();
 
         return services;
     }

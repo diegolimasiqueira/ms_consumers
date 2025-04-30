@@ -7,8 +7,8 @@ public class CountryCode
     public Guid Id { get; private set; }
     public string Code { get; private set; } = string.Empty;
     public string CountryName { get; private set; } = string.Empty;
-    public ICollection<Consumer> Consumers { get; private set; } = new List<Consumer>();
-    public ICollection<ConsumerAddress> Addresses { get; private set; } = new List<ConsumerAddress>();
+    public ICollection<ConsumerEntity> Consumers { get; private set; } = new List<ConsumerEntity>();
+    public ICollection<AddressEntity> Addresses { get; private set; } = new List<AddressEntity>();
 
     private CountryCode() { }
 

@@ -7,7 +7,7 @@ public class TimeZone
     public Guid Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
-    public ICollection<Consumer> Consumers { get; private set; } = new List<Consumer>();
+    public ICollection<ConsumerEntity> Consumers { get; private set; } = new List<ConsumerEntity>();
 
     private TimeZone() { }
 

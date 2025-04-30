@@ -43,7 +43,7 @@ git clone [url-do-repositorio]
   "DatabaseSettings": {
     "Host": "localhost",
     "Port": "5432",
-    "Database": "ms_consumers",
+    "Database": "consumer",
     "Username": "postgres",
     "Password": "your_password"
   }

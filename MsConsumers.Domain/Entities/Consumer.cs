@@ -23,7 +23,7 @@ public class Consumer
     public CountryCode PhoneCountryCode { get; private set; } = null!;
     public Language PreferredLanguage { get; private set; } = null!;
     public TimeZone Timezone { get; private set; } = null!;
-    public ICollection<ConsumerAddress> Addresses { get; private set; } = new List<ConsumerAddress>();
+    public ICollection<AddressEntity> Addresses { get; private set; } = new List<AddressEntity>();
 
     private Consumer() { }
 
@@ -63,22 +63,22 @@ public class Consumer
 
     public void Update(
         string name,
+        string? photoUrl,
         string phoneNumber,
         string email,
         Guid currencyId,
         Guid phoneCountryCodeId,
         Guid preferredLanguageId,
-        Guid timezoneId,
-        string? photoUrl = null)
+        Guid timezoneId)
     {
         Name = name;
+        PhotoUrl = photoUrl;
         PhoneNumber = phoneNumber;
         Email = email;
         CurrencyId = currencyId;
         PhoneCountryCodeId = phoneCountryCodeId;
         PreferredLanguageId = preferredLanguageId;
         TimezoneId = timezoneId;
-        PhotoUrl = photoUrl;
         UpdatedAt = DateTime.UtcNow;
     }
 } 
