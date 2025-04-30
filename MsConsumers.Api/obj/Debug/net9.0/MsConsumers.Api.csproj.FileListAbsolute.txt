@@ -26,11 +26,9 @@ E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\Npgsql.EntityFrameworkCore.
 E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MsConsumers.Application.dll
 E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MsConsumers.Domain.dll
 E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MsConsumers.Infrastructure.dll
-E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MsConsumers.Shared.dll
 E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MsConsumers.Application.pdb
 E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MsConsumers.Infrastructure.pdb
 E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MsConsumers.Domain.pdb
-E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MsConsumers.Shared.pdb
 E:\git\ms_consumers\MsConsumers.Api\obj\Debug\net9.0\MsConsumers.Api.csproj.AssemblyReference.cache
 E:\git\ms_consumers\MsConsumers.Api\obj\Debug\net9.0\MsConsumers.Api.GeneratedMSBuildEditorConfig.editorconfig
 E:\git\ms_consumers\MsConsumers.Api\obj\Debug\net9.0\MsConsumers.Api.AssemblyInfoInputs.cache
@@ -140,3 +138,6 @@ E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnaly
 E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MediatR.dll
+E:\git\ms_consumers\MsConsumers.Api\bin\Debug\net9.0\MediatR.Contracts.dll
+E:\git\ms_consumers\MsConsumers.Api\obj\Debug\net9.0\MsConsumers.Api.sourcelink.json

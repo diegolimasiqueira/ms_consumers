@@ -1,20 +1,19 @@
 # MsConsumers - Microserviço de Consumidores
 
-Microserviço desenvolvido em ASP.NET Core 8.0 para gerenciamento de consumidores, seguindo os princípios de Clean Architecture, Domain-Driven Design (DDD) e CQRS.
+Microserviço desenvolvido em ASP.NET Core 9.0 para gerenciamento de consumidores, seguindo os princípios de Clean Architecture, Domain-Driven Design (DDD) e CQRS.
 
 ## 🏗️ Arquitetura
 
 O projeto segue a Clean Architecture com as seguintes camadas:
 
 - **MsConsumers.Api**: Camada de apresentação, contendo os controllers e configurações da API
-- **MsConsumers.Application**: Camada de aplicação, contendo os casos de uso, DTOs e interfaces
-- **MsConsumers.Domain**: Camada de domínio, contendo as entidades, value objects e regras de negócio
+- **MsConsumers.Application**: Camada de aplicação, contendo os casos de uso, commands, handlers e interfaces
+- **MsConsumers.Domain**: Camada de domínio, contendo as entidades e regras de negócio
 - **MsConsumers.Infrastructure**: Camada de infraestrutura, contendo implementações de repositórios, serviços externos e configurações
-- **MsConsumers.Shared**: Camada compartilhada, contendo configurações e utilitários comuns
 
 ## 🛠️ Tecnologias Utilizadas
 
-- .NET 8.0
+- .NET 9.0
 - ASP.NET Core
 - Entity Framework Core
 - PostgreSQL
@@ -23,10 +22,11 @@ O projeto segue a Clean Architecture com as seguintes camadas:
 - DDD (Domain-Driven Design)
 - CQRS (Command Query Responsibility Segregation)
 - SOLID Principles
+- MediatR
 
 ## 📋 Pré-requisitos
 
-- .NET 8.0 SDK
+- .NET 9.0 SDK
 - PostgreSQL 15 ou superior
 - Visual Studio 2022 ou VS Code
 
@@ -41,14 +41,11 @@ git clone [url-do-repositorio]
 ```json
 {
   "DatabaseSettings": {
-    "Host": "server",
-    "Database": "your database",
-    "Username": "your username",
-    "Password": "your password",
-    "Port": 5432,
-    "UseSsl": false,
-    "MaxRetryCount": 3,
-    "CommandTimeout": 30
+    "Host": "localhost",
+    "Port": "5432",
+    "Database": "ms_consumers",
+    "Username": "postgres",
+    "Password": "your_password"
   }
 }
 ```
@@ -79,12 +76,45 @@ https://localhost:5001/swagger
 
 O banco de dados está organizado no schema `shc_consumer` com as seguintes tabelas:
 
+### Tabelas
+
 - `tb_consumers`: Armazena informações dos consumidores
+  - Campos únicos: document_id, email, phone_number
+  - Chaves estrangeiras: currency_id, phone_country_code_id, preferred_language_id, timezone_id
+
 - `tb_consumer_address`: Armazena endereços dos consumidores
+  - Chaves estrangeiras: consumer_id, country_id
+
 - `tb_country_codes`: Armazena códigos de países
+  - Campo único: code
+
 - `tb_currencies`: Armazena moedas
+  - Campo único: code
+
 - `tb_languages`: Armazena idiomas
+  - Campo único: code
+
 - `tb_time_zones`: Armazena fusos horários
+  - Campo único: name
+
+### Índices
+
+- `IX_tb_consumers_currency_id`
+- `IX_tb_consumers_phone_country_code_id`
+- `IX_tb_consumers_preferred_language_id`
+- `IX_tb_consumers_timezone_id`
+- `IX_tb_consumer_address_consumer_id`
+- `IX_tb_consumer_address_country_id`
+
+### Restrições Únicas
+
+- `IX_tb_consumers_document_id`
+- `IX_tb_consumers_email`
+- `IX_tb_consumers_phone_number`
+- `IX_tb_country_codes_code`
+- `IX_tb_currencies_code`
+- `IX_tb_languages_code`
+- `IX_tb_time_zones_name`
 
 ## 🔐 Segurança
 
@@ -98,7 +128,10 @@ O banco de dados está organizado no schema `shc_consumer` com as seguintes tabe
 - Classes e métodos em PascalCase
 - Propriedades privadas com underscore prefix
 - Documentação XML em classes e métodos públicos
-- Testes unitários para cada camada (a ser implementado)
+- Entidades imutáveis após criação
+- Validações no domínio
+- Commands e Handlers para operações de escrita
+- Queries para operações de leitura
 
 ## 🤝 Contribuição
 

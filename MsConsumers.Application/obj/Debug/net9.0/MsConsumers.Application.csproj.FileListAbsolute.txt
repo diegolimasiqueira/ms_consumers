@@ -13,3 +13,4 @@ E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsumers.Applica
 E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\refint\MsConsumers.Application.dll
 E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsumers.Application.pdb
 E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\ref\MsConsumers.Application.dll
+E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsumers.Application.sourcelink.json

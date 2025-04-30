@@ -1,0 +1,17 @@
+using System;
+using MediatR;
+
+namespace MsConsumers.Application.Commands.Consumer;
+
+public class CreateConsumerCommand : IRequest<CreateConsumerCommandResponse>
+{
+    public string Name { get; set; } = string.Empty;
+    public string DocumentId { get; set; } = string.Empty;
+    public string PhotoUrl { get; set; } = string.Empty;
+    public string PhoneNumber { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public Guid CurrencyId { get; set; }
+    public Guid PhoneCountryCodeId { get; set; }
+    public Guid PreferredLanguageId { get; set; }
+    public Guid TimezoneId { get; set; }
+} 

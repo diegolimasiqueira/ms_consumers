@@ -3,9 +3,7 @@ E:\git\ms_consumers\MsConsumers.Infrastructure\bin\Debug\net9.0\MsConsumers.Infr
 E:\git\ms_consumers\MsConsumers.Infrastructure\bin\Debug\net9.0\MsConsumers.Infrastructure.dll
 E:\git\ms_consumers\MsConsumers.Infrastructure\bin\Debug\net9.0\MsConsumers.Infrastructure.pdb
 E:\git\ms_consumers\MsConsumers.Infrastructure\bin\Debug\net9.0\MsConsumers.Domain.dll
-E:\git\ms_consumers\MsConsumers.Infrastructure\bin\Debug\net9.0\MsConsumers.Shared.dll
 E:\git\ms_consumers\MsConsumers.Infrastructure\bin\Debug\net9.0\MsConsumers.Domain.pdb
-E:\git\ms_consumers\MsConsumers.Infrastructure\bin\Debug\net9.0\MsConsumers.Shared.pdb
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.csproj.AssemblyReference.cache
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.AssemblyInfoInputs.cache
@@ -17,3 +15,4 @@ E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\refint\MsConsume
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.pdb
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.genruntimeconfig.cache
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\ref\MsConsumers.Infrastructure.dll
+E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.sourcelink.json

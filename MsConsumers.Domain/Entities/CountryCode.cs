@@ -1,24 +1,22 @@
+using System.Collections.Generic;
+
 namespace MsConsumers.Domain.Entities;
 
 public class CountryCode
 {
     public Guid Id { get; private set; }
-    public string Code { get; private set; }
-    public string CountryName { get; private set; }
+    public string Code { get; private set; } = string.Empty;
+    public string CountryName { get; private set; } = string.Empty;
+    public ICollection<Consumer> Consumers { get; private set; } = new List<Consumer>();
+    public ICollection<ConsumerAddress> Addresses { get; private set; } = new List<ConsumerAddress>();
 
-    // Navigation properties
-    public virtual ICollection<Consumer> Consumers { get; private set; }
-    public virtual ICollection<ConsumerAddress> Addresses { get; private set; }
+    private CountryCode() { }
 
-    protected CountryCode() { }
-
-    public CountryCode(string code, string countryName)
+    public CountryCode(Guid id, string code, string countryName)
     {
-        Id = Guid.NewGuid();
+        Id = id;
         Code = code;
         CountryName = countryName;
-        Consumers = new List<Consumer>();
-        Addresses = new List<ConsumerAddress>();
     }
 
     public void Update(string code, string countryName)

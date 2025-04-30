@@ -1,22 +1,21 @@
+using System.Collections.Generic;
+
 namespace MsConsumers.Domain.Entities;
 
 public class TimeZone
 {
     public Guid Id { get; private set; }
-    public string Name { get; private set; }
-    public string Description { get; private set; }
+    public string Name { get; private set; } = string.Empty;
+    public string Description { get; private set; } = string.Empty;
+    public ICollection<Consumer> Consumers { get; private set; } = new List<Consumer>();
 
-    // Navigation properties
-    public virtual ICollection<Consumer> Consumers { get; private set; }
+    private TimeZone() { }
 
-    protected TimeZone() { }
-
-    public TimeZone(string name, string description)
+    public TimeZone(Guid id, string name, string description)
     {
-        Id = Guid.NewGuid();
+        Id = id;
         Name = name;
         Description = description;
-        Consumers = new List<Consumer>();
     }
 
     public void Update(string name, string description)

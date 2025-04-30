@@ -12,7 +12,6 @@
           "Microsoft.EntityFrameworkCore.Tools": "9.0.4",
           "Microsoft.Extensions.Configuration.Binder": "9.0.4",
           "MsConsumers.Domain": "1.0.0",
-          "MsConsumers.Shared": "1.0.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4"
         },
         "runtime": {
@@ -627,14 +626,6 @@
             "fileVersion": "1.0.0.0"
           }
         }
-      },
-      "MsConsumers.Shared/1.0.0": {
-        "runtime": {
-          "MsConsumers.Shared.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
       }
     }
   },
@@ -946,11 +937,6 @@
       "hashPath": "system.threading.channels.7.0.0.nupkg.sha512"
     },
     "MsConsumers.Domain/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "MsConsumers.Shared/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

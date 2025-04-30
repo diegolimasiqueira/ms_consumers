@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MsConsumers.Infrastructure.Configurations;
 using MsConsumers.Infrastructure.Data;
-using MsConsumers.Shared.Configurations;
 
 namespace MsConsumers.Infrastructure.Extensions;
 
@@ -12,6 +12,9 @@ public static class ServiceCollectionExtensions
     {
         var databaseSettings = configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
         
+        if (databaseSettings == null)
+            throw new InvalidOperationException("DatabaseSettings section is missing in configuration");
+
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(
                 databaseSettings.GetConnectionString(),
