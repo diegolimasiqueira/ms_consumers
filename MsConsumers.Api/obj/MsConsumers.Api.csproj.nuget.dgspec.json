@@ -57,6 +57,18 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "AspNetCore.HealthChecks.UI": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "AspNetCore.HealthChecks.UI.Client": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "AspNetCore.HealthChecks.UI.InMemory.Storage": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "DotNetEnv": {
               "target": "Package",
               "version": "[3.1.1, )"
@@ -70,6 +82,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.4, )"
+            },
+            "Microsoft.Extensions.Diagnostics.HealthChecks": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
