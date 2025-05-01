@@ -17,7 +17,7 @@ public static class SwaggerConfiguration
                 Contact = new OpenApiContact
                 {
                     Name = "Development Team",
-                    Email = "diego.sousa@easyprofind.com",
+                    Email = "diego@easyprofind.com",
                     Url = new Uri("https://easyprofind.com/contact")
                 }               
             });
