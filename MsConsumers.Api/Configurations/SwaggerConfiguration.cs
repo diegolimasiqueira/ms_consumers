@@ -19,12 +19,7 @@ public static class SwaggerConfiguration
                     Name = "Development Team",
                     Email = "diego.sousa@easyprofind.com",
                     Url = new Uri("https://easyprofind.com/contact")
-                },
-                License = new OpenApiLicense
-                {
-                    Name = "Terms of Use",
-                    Url = new Uri("https://msconsumers.com/termos")
-                }
+                }               
             });
 
             // Include XML comments in the documentation if the file exists
