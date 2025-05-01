@@ -9,10 +9,10 @@ E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infr
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.AssemblyInfoInputs.cache
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.AssemblyInfo.cs
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.csproj.CoreCompileInputs.cache
+E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.sourcelink.json
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsum.151D2A81.Up2Date
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.dll
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\refint\MsConsumers.Infrastructure.dll
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.pdb
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.genruntimeconfig.cache
 E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\ref\MsConsumers.Infrastructure.dll
-E:\git\ms_consumers\MsConsumers.Infrastructure\obj\Debug\net9.0\MsConsumers.Infrastructure.sourcelink.json

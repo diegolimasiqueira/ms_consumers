@@ -30,14 +30,20 @@ public class GetConsumerByIdCommandHandler : IRequestHandler<GetConsumerByIdComm
     /// <param name="request">The command request</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The consumer response</returns>
+    /// <exception cref="ArgumentException">Thrown when the ID is empty</exception>
     /// <exception cref="ConsumerNotFoundException">Thrown when the consumer is not found</exception>
     public async Task<GetConsumerByIdCommandResponse?> Handle(GetConsumerByIdCommand request, CancellationToken cancellationToken)
     {
+        if (request.Id == Guid.Empty)
+        {
+            throw new ArgumentException("Consumer ID cannot be empty", nameof(request.Id));
+        }
+
         var consumer = await _consumerRepository.GetByIdAsync(request.Id);
         
         if (consumer == null)
         {
-            return null;
+            throw new ConsumerNotFoundException(request.Id);
         }
 
         return new GetConsumerByIdCommandResponse

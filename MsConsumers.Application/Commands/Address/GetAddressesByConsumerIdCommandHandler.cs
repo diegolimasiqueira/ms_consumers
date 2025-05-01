@@ -36,11 +36,6 @@ public class GetAddressesByConsumerIdCommandHandler : IRequestHandler<GetAddress
     {
         var addresses = await _addressRepository.GetByConsumerIdAsync(request.ConsumerId);
         
-        if (!addresses.Any())
-        {
-            throw new AddressNotFoundException(Guid.Empty);
-        }
-
         return addresses.Select(address => new GetAddressByIdCommandResponse
         {
             Id = address.Id,

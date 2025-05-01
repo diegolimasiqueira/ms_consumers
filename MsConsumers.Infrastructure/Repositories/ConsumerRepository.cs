@@ -10,9 +10,9 @@ namespace MsConsumers.Infrastructure.Repositories
 {
     public class ConsumerRepository : IConsumerRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public ConsumerRepository(ApplicationDbContext context)
+        public ConsumerRepository(IApplicationDbContext context)
         {
             _context = context;
         }

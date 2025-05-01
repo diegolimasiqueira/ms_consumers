@@ -1,20 +1,21 @@
 using Microsoft.EntityFrameworkCore;
 using MsConsumers.Domain.Entities;
+using MsConsumers.Infrastructure.Data.Configurations;
 
 namespace MsConsumers.Infrastructure.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
 
-    public DbSet<ConsumerEntity> Consumers { get; set; }
-    public DbSet<CountryCode> CountryCodes { get; set; }
-    public DbSet<Currency> Currencies { get; set; }
-    public DbSet<Language> Languages { get; set; }
-    public DbSet<MsConsumers.Domain.Entities.TimeZone> TimeZones { get; set; }
-    public DbSet<AddressEntity> Addresses { get; set; }
+    public virtual DbSet<ConsumerEntity> Consumers { get; set; }
+    public virtual DbSet<CountryCode> CountryCodes { get; set; }
+    public virtual DbSet<Currency> Currencies { get; set; }
+    public virtual DbSet<Language> Languages { get; set; }
+    public virtual DbSet<MsConsumers.Domain.Entities.TimeZone> TimeZones { get; set; }
+    public virtual DbSet<AddressEntity> Addresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -97,6 +98,6 @@ public class ApplicationDbContext : DbContext
             entity.HasIndex(e => e.Name).IsUnique();
         });
 
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        modelBuilder.ApplyConfiguration(new AddressEntityConfiguration());
     }
 } 

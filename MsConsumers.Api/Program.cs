@@ -2,6 +2,7 @@ using MsConsumers.Api.Extensions;
 using MsConsumers.Infrastructure.Extensions;
 using MsConsumers.Application.Commands.Consumer;
 using MsConsumers.Api.Configurations;
+using MsConsumers.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Creat
 
 // Add Infrastructure
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using MediatR;
 
 namespace MsConsumers.Application.Commands.Consumer;
@@ -34,6 +35,7 @@ public class CreateConsumerCommand : IRequest<CreateConsumerCommandResponse>
     /// </summary>
     [Required(ErrorMessage = "Phone number is required")]
     [StringLength(20, ErrorMessage = "Phone number must have a maximum of 20 characters")]
+    [RegularExpression(@"^\+?[1-9]\d{7,14}$", ErrorMessage = "Invalid phone number format")]
     public string PhoneNumber { get; set; } = string.Empty;
 
     /// <summary>

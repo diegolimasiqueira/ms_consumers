@@ -8,9 +8,9 @@ E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsumers.Applica
 E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsumers.Application.AssemblyInfoInputs.cache
 E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsumers.Application.AssemblyInfo.cs
 E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsumers.Application.csproj.CoreCompileInputs.cache
+E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsumers.Application.sourcelink.json
 E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsum.C2A72746.Up2Date
 E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsumers.Application.dll
 E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\refint\MsConsumers.Application.dll
 E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsumers.Application.pdb
 E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\ref\MsConsumers.Application.dll
-E:\git\ms_consumers\MsConsumers.Application\obj\Debug\net9.0\MsConsumers.Application.sourcelink.json

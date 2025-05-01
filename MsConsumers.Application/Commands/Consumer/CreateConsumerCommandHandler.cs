@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -19,6 +20,9 @@ namespace MsConsumers.Application.Commands.Consumer
 
         public async Task<CreateConsumerCommandResponse> Handle(CreateConsumerCommand request, CancellationToken cancellationToken)
         {
+            // Validate the request using DataAnnotations
+            Validator.ValidateObject(request, new ValidationContext(request), validateAllProperties: true);
+
             var consumer = new ConsumerEntity(
                 request.Name,
                 request.DocumentId,
