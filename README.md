@@ -1,4 +1,4 @@
-# MsConsumers
+# MSConsumers
 
 ## Descrição
 Microserviço responsável por gerenciar consumidores e seus endereços.
@@ -16,11 +16,11 @@ Microserviço responsável por gerenciar consumidores e seus endereços.
 O projeto segue a arquitetura limpa (Clean Architecture) e os princípios do Domain-Driven Design (DDD).
 
 ```
-MsConsumers/
-├── MsConsumers.Api/           # Camada de apresentação (API)
-├── MsConsumers.Application/   # Camada de aplicação (casos de uso)
-├── MsConsumers.Domain/        # Camada de domínio (entidades e regras de negócio)
-└── MsConsumers.Infrastructure/# Camada de infraestrutura (repositórios, serviços externos)
+MSConsumers/
+├── MSConsumers.Api/           # Camada de apresentação (API)
+├── MSConsumers.Application/   # Camada de aplicação (casos de uso)
+├── MSConsumers.Domain/        # Camada de domínio (entidades e regras de negócio)
+└── MSConsumers.Infrastructure/# Camada de infraestrutura (repositórios, serviços externos)
 ```
 
 ## Endpoints
@@ -89,7 +89,7 @@ O projeto utiliza PostgreSQL como banco de dados. As configurações de conexão
    ```
 4. Inicie o projeto:
    ```bash
-   dotnet run --project MsConsumers.Api
+   dotnet run --project MSConsumers.Api
    ```
 
 ## Documentação da API
