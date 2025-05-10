@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ms-consumers-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: kong
+    konghq.com/override: "true"
+    konghq.com/plugins: cors-plugin,request-transformer-plugin
+    konghq.com/preserve-host: "true"
+    konghq.com/protocols: http,https
+    konghq.com/route-type: v0
+    konghq.com/strip-path: "false"
+spec:
+  rules:
+  - host: ms-consumers.local
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: ms-consumers-service
+            port:
+              number: 80 
