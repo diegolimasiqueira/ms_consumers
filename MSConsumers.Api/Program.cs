@@ -42,6 +42,7 @@ builder.WebHost.ConfigureKestrel(options =>
 {
     options.AllowSynchronousIO = false;
     options.AddServerHeader = false;
+    options.ListenAnyIP(80);
 });
 
 // Configure URLs based on environment
@@ -51,7 +52,7 @@ if (builder.Environment.IsDevelopment())
 }
 else
 {
-    builder.WebHost.UseUrls("http://0.0.0.0:80");
+    builder.WebHost.UseUrls("http://+:80");
 }
 
 // Add Health Checks
