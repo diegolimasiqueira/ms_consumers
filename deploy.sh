@@ -109,7 +109,7 @@ metadata:
   namespace: default
   annotations:
     kubernetes.io/ingress.class: kong
-    konghq.com/preserve-host: "true"
+    konghq.com/preserve-host: "false"
     konghq.com/strip-path: "false"
     konghq.com/protocols: "http,https"
     konghq.com/plugins: "cors-plugin,request-transformer-plugin"
@@ -158,7 +158,6 @@ config:
     - "X-Forwarded-Proto: http"
     - "X-Forwarded-Host: ms-consumers.local"
     - "X-Forwarded-Port: 32167"
-    - "Host: ms-consumers.local"
   replace:
     headers:
     - "Host: ms-consumers.local"
