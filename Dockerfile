@@ -20,12 +20,9 @@ RUN dotnet publish "MSConsumers.Api/MSConsumers.Api.csproj" -c Release -o /app/p
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 
-# Copiar os arquivos publicados
+# Copiar os arquivos publicados e configuração
 COPY --from=build /app/publish .
-
-# Copiar os arquivos de configuração
-COPY ["MSConsumers.Api/appsettings.json", "appsettings.json"]
-COPY ["MSConsumers.Api/appsettings.Production.json", "appsettings.Production.json"]
+COPY --from=build /src/MSConsumers.Api/appsettings.json .
 
 # Configurar variáveis de ambiente
 ENV ASPNETCORE_URLS=http://+:80
