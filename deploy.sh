@@ -8,6 +8,21 @@ docker build -t ms-consumers:latest .
 echo "Carregando a imagem no Minikube..."
 minikube image load ms-consumers:latest
 
+# Verificar se a imagem foi carregada
+echo "Verificando se a imagem foi carregada..."
+minikube image list | grep ms-consumers
+
+# Limpar recursos existentes
+echo "Limpando recursos existentes..."
+kubectl delete deployment ms-consumers --ignore-not-found=true
+kubectl delete pod -l app=ms-consumers --ignore-not-found=true
+kubectl delete service ms-consumers-service --ignore-not-found=true
+kubectl delete ingress ms-consumers-ingress --ignore-not-found=true
+
+# Aguardar a limpeza
+echo "Aguardando limpeza dos recursos..."
+sleep 5
+
 # Aplicar as configurações do Kubernetes
 echo "Aplicando configurações do Kubernetes..."
 kubectl apply -f kubernetes/ms-consumers-deployment.yaml
