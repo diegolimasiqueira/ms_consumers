@@ -64,7 +64,7 @@ builder.Services.AddHealthChecksUI(setup =>
     setup.SetEvaluationTimeInSeconds(5);
     setup.MaximumHistoryEntriesPerEndpoint(10);
     setup.SetApiMaxActiveRequests(1);
-    setup.AddHealthCheckEndpoint("API", "/health");
+    setup.AddHealthCheckEndpoint("API", "http://localhost:80/health");
 })
 .AddInMemoryStorage();
 
@@ -108,12 +108,14 @@ app.MapControllers();
 // Add Health Check endpoints
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+    AllowCachingResponses = false
 });
 
 app.MapHealthChecks("/health-json", new HealthCheckOptions
 {
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+    AllowCachingResponses = false
 });
 
 // Add Health Checks UI

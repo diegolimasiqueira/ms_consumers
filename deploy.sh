@@ -57,11 +57,14 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 80
+          name: http
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Production"
         - name: ASPNETCORE_URLS
           value: "http://+:80"
+        - name: ASPNETCORE_HOST
+          value: "localhost"
         resources:
           limits:
             cpu: "500m"
@@ -73,14 +76,20 @@ spec:
           httpGet:
             path: /health
             port: 80
+            scheme: HTTP
           initialDelaySeconds: 5
           periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 3
         livenessProbe:
           httpGet:
             path: /health
             port: 80
+            scheme: HTTP
           initialDelaySeconds: 15
           periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 3
 EOF
 
 # Service
@@ -94,7 +103,8 @@ spec:
   selector:
     app: ms-consumers
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 80
   type: ClusterIP
@@ -114,12 +124,13 @@ metadata:
     konghq.com/protocols: "http,https"
     konghq.com/plugins: "cors-plugin,request-transformer-plugin"
     konghq.com/override: "true"
+    konghq.com/route-type: "v0"
 spec:
   rules:
   - host: ms-consumers.local
     http:
       paths:
-      - path: /
+      - path: /api
         pathType: Prefix
         backend:
           service:
@@ -158,6 +169,7 @@ config:
     - "X-Forwarded-Proto: http"
     - "X-Forwarded-Host: ms-consumers.local"
     - "X-Forwarded-Port: 32167"
+    - "X-Real-IP: 127.0.0.1"
   replace:
     headers:
     - "Host: ms-consumers.local"
