@@ -162,6 +162,9 @@ config:
   replace:
     headers:
     - "Host: ms-consumers.local"
+  remove:
+    headers:
+    - "host"
 EOF
 
 # Aplicar as configurações do Kubernetes
