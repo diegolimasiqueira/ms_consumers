@@ -26,28 +26,28 @@ spec:
         - name: ASPNETCORE_URLS
           value: "http://+:80"
         - name: ASPNETCORE_HOST
-          value: "0.0.0.0"
-        - name: DB_HOST
+          value: "localhost"
+        - name: DatabaseSettings__Host
           valueFrom:
             secretKeyRef:
               name: db-secrets
               key: host
-        - name: DB_PORT
+        - name: DatabaseSettings__Port
           valueFrom:
             secretKeyRef:
               name: db-secrets
               key: port
-        - name: DB_NAME
+        - name: DatabaseSettings__Database
           valueFrom:
             secretKeyRef:
               name: db-secrets
               key: database
-        - name: DB_USER
+        - name: DatabaseSettings__Username
           valueFrom:
             secretKeyRef:
               name: db-secrets
               key: username
-        - name: DB_PASSWORD
+        - name: DatabaseSettings__Password
           valueFrom:
             secretKeyRef:
               name: db-secrets
