@@ -10,11 +10,11 @@ minikube image load ms-consumers:latest
 
 # Aplicar as configurações do Kubernetes
 echo "Aplicando configurações do Kubernetes..."
-kubectl apply -f ~/Documentos/docker_images/ms-consumers-deployment.yaml
-kubectl apply -f ~/Documentos/docker_images/ms-consumers-service.yaml
-kubectl apply -f ~/Documentos/docker_images/ms-consumers-ingress.yaml
-kubectl apply -f ~/Documentos/docker_images/cors-plugin.yaml
-kubectl apply -f ~/Documentos/docker_images/request-transformer-plugin.yaml
+kubectl apply -f kubernetes/ms-consumers-deployment.yaml
+kubectl apply -f kubernetes/ms-consumers-service.yaml
+kubectl apply -f kubernetes/ms-consumers-ingress.yaml
+kubectl apply -f kubernetes/cors-plugin.yaml
+kubectl apply -f kubernetes/request-transformer-plugin.yaml
 
 # Aguardar o deployment
 echo "Aguardando o deployment..."
