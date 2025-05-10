@@ -26,31 +26,167 @@ kubectl delete deployment ms-consumers --ignore-not-found=true
 kubectl delete pod -l app=ms-consumers --ignore-not-found=true
 kubectl delete service ms-consumers-service --ignore-not-found=true
 kubectl delete ingress ms-consumers-ingress --ignore-not-found=true
-kubectl delete kongplugin cors-plugin --ignore-not-found=true
-kubectl delete kongplugin request-transformer-plugin --ignore-not-found=true
 
 # Aguardar a limpeza
 echo "Aguardando limpeza dos recursos..."
 sleep 5
 
-# Aplicar as configurações do Kubernetes na ordem correta
+# Criar arquivos do Kubernetes
+echo "Criando arquivos do Kubernetes..."
+
+# Deployment
+cat > kubernetes/ms-consumers-deployment.yaml << EOF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-consumers
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-consumers
+  template:
+    metadata:
+      labels:
+        app: ms-consumers
+    spec:
+      containers:
+      - name: ms-consumers
+        image: ms-consumers:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+          name: http
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+        - name: ASPNETCORE_URLS
+          value: "http://+:80"
+        - name: ASPNETCORE_HOST
+          value: "localhost"
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 2
+          failureThreshold: 3
+EOF
+
+# Service
+cat > kubernetes/ms-consumers-service.yaml << EOF
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-consumers-service
+  namespace: default
+spec:
+  selector:
+    app: ms-consumers
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+EOF
+
+# Ingress
+cat > kubernetes/ms-consumers-ingress.yaml << EOF
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ms-consumers-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: kong
+    konghq.com/preserve-host: "false"
+    konghq.com/strip-path: "false"
+    konghq.com/protocols: "http,https"
+    konghq.com/plugins: "cors-plugin,request-transformer-plugin"
+    konghq.com/override: "true"
+    konghq.com/route-type: "v0"
+spec:
+  rules:
+  - host: ms-consumers.local
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: ms-consumers-service
+            port:
+              number: 80
+EOF
+
+# CORS Plugin
+cat > kubernetes/cors-plugin.yaml << EOF
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: cors-plugin
+  namespace: default
+plugin: cors
+config:
+  origins: ["*"]
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+  headers: ["Accept", "Accept-Version", "Content-Length", "Content-MD5", "Content-Type", "Date", "Authorization", "X-Requested-With"]
+  credentials: true
+  max_age: 3600
+EOF
+
+# Request Transformer Plugin
+cat > kubernetes/request-transformer-plugin.yaml << EOF
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: request-transformer-plugin
+  namespace: default
+plugin: request-transformer
+config:
+  add:
+    headers:
+    - "X-Forwarded-Proto: http"
+    - "X-Forwarded-Host: ms-consumers.local"
+    - "X-Forwarded-Port: 32167"
+    - "X-Real-IP: 127.0.0.1"
+  replace:
+    headers:
+    - "Host: ms-consumers.local"
+  remove:
+    headers:
+    - "host"
+EOF
+
+# Aplicar as configurações do Kubernetes
 echo "Aplicando configurações do Kubernetes..."
-
-# 1. Primeiro os plugins do Kong
-echo "Aplicando plugins do Kong..."
-kubectl apply -f kubernetes/kong-plugins.yaml
-
-# 2. Depois o deployment
-echo "Aplicando deployment..."
 kubectl apply -f kubernetes/ms-consumers-deployment.yaml
-
-# 3. Em seguida o service
-echo "Aplicando service..."
 kubectl apply -f kubernetes/ms-consumers-service.yaml
-
-# 4. Por último o ingress
-echo "Aplicando ingress..."
 kubectl apply -f kubernetes/ms-consumers-ingress.yaml
+kubectl apply -f kubernetes/cors-plugin.yaml
+kubectl apply -f kubernetes/request-transformer-plugin.yaml
+kubectl apply -f kubernetes/kong-plugins.yaml
+kubectl apply -f kubernetes/ms-consumers-deployment.yaml
 
 # Aguardar o deployment
 echo "Aguardando o deployment..."
@@ -64,12 +200,13 @@ kubectl get pods -l app=ms-consumers
 echo "Endpoints disponíveis:"
 minikube service list
 
+# Aplicar os secrets do banco de dados
+kubectl apply -f kubernetes/db-secrets.yaml
+
 # Aguardar o pod estar pronto
 echo "Aguardando o pod estar pronto..."
 kubectl wait --for=condition=ready pod -l app=ms-consumers --timeout=300s
 
-# Mostrar status final
-echo "Status final do deployment:"
+# Mostrar o status do deployment
 kubectl get deployment ms-consumers
-echo "Status final do pod:"
 kubectl get pods -l app=ms-consumers 
