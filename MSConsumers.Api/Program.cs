@@ -101,4 +101,6 @@ app.UseHealthChecksUI(options =>
 // Add global exception handler
 app.UseGlobalExceptionHandler();
 
+app.Urls.Add("http://0.0.0.0:80");
+
 app.Run();
