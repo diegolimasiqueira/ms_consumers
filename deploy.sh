@@ -4,18 +4,21 @@
 echo "Criando pasta kubernetes..."
 mkdir -p kubernetes
 
-# Construir a imagem Docker
-echo "Construindo a imagem Docker..."
-docker build -t ms-consumers:latest .
+# Verificar status do Minikube
+echo "Verificando status do Minikube..."
+minikube status
 
-# Carregar a imagem no Minikube
-echo "Carregando a imagem no Minikube..."
+# Configurar o ambiente Docker para o Minikube
+echo "Configurando ambiente Docker para o Minikube..."
 eval $(minikube docker-env)
+
+# Construir a imagem Docker diretamente no ambiente do Minikube
+echo "Construindo a imagem Docker no ambiente do Minikube..."
 docker build -t ms-consumers:latest .
 
 # Verificar se a imagem foi carregada
 echo "Verificando se a imagem foi carregada..."
-minikube image list | grep ms-consumers
+docker images | grep ms-consumers
 
 # Limpar recursos existentes
 echo "Limpando recursos existentes..."
@@ -30,6 +33,55 @@ sleep 5
 
 # Criar arquivos do Kubernetes
 echo "Criando arquivos do Kubernetes..."
+
+# Deployment
+cat > kubernetes/ms-consumers-deployment.yaml << EOF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-consumers
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-consumers
+  template:
+    metadata:
+      labels:
+        app: ms-consumers
+    spec:
+      containers:
+      - name: ms-consumers
+        image: ms-consumers:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+        - name: ASPNETCORE_URLS
+          value: "http://+:80"
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20
+EOF
 
 # Service
 cat > kubernetes/ms-consumers-service.yaml << EOF
@@ -123,6 +175,10 @@ kubectl apply -f kubernetes/request-transformer-plugin.yaml
 # Aguardar o deployment
 echo "Aguardando o deployment..."
 kubectl rollout status deployment/ms-consumers
+
+# Verificar status do pod
+echo "Verificando status do pod..."
+kubectl get pods -l app=ms-consumers
 
 # Mostrar os endpoints
 echo "Endpoints disponíveis:"
