@@ -22,4 +22,11 @@ spec:
           service:
             name: ms-consumers-service
             port:
+              number: 80
+      - path: /health
+        pathType: Prefix
+        backend:
+          service:
+            name: ms-consumers-service
+            port:
               number: 80 
