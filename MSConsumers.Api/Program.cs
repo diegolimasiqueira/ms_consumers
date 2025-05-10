@@ -6,6 +6,7 @@ using MSConsumers.Infrastructure.Data;
 using HealthChecks.UI.Client;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfiguration();
+
+// Configure ForwardedHeaders
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.All;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+    options.RequireHeaderSymmetry = false;
+    options.ForwardLimit = null;
+});
+
+// Configure Kestrel
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.AllowSynchronousIO = false;
+    options.AddServerHeader = false;
+});
 
 // Add Health Checks
 builder.Services.AddHealthChecks()
@@ -37,6 +55,9 @@ builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
 var app = builder.Build();
 
+// Use ForwardedHeaders
+app.UseForwardedHeaders();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -44,16 +65,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "MSConsumers API V1");
-        c.RoutePrefix = string.Empty; // Define a rota raiz para o Swagger
+        c.RoutePrefix = "swagger";
         c.DocumentTitle = "MSConsumers API Documentation";
-        c.DefaultModelsExpandDepth(-1); // Oculta os schemas por padrão
+        c.DefaultModelsExpandDepth(-1);
         c.DisplayRequestDuration();
         c.EnableDeepLinking();
         c.EnableFilter();
     });
 }
 
-app.UseHttpsRedirection();
+// Remover o redirecionamento HTTPS já que o Kong está lidando com isso
+// app.UseHttpsRedirection();
+
 app.UseAuthorization();
 app.MapControllers();
 

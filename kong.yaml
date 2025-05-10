@@ -1,0 +1,40 @@
+_format_version: "2.1"
+_transform: true
+
+services:
+  - name: ms-consumers
+    url: http://ms-consumers:80
+    routes:
+      - name: ms-consumers-route
+        paths:
+          - /api/consumers
+        preserve_host: true
+        strip_path: false
+        protocols:
+          - http
+          - https
+      - name: ms-consumers-swagger-route
+        paths:
+          - /swagger
+          - /swagger.json
+        preserve_host: true
+        strip_path: false
+        protocols:
+          - http
+          - https
+    plugins:
+      - name: cors
+        config:
+          origins: ["*"]
+          methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+          headers: ["Accept", "Accept-Version", "Content-Length", "Content-MD5", "Content-Type", "Date", "Authorization", "X-Requested-With"]
+          exposed_headers: ["X-Auth-Token"]
+          credentials: true
+          max_age: 3600
+      - name: request-transformer
+        config:
+          add:
+            headers:
+              - "X-Forwarded-Proto: https"
+              - "X-Forwarded-Host: api.example.com"
+              - "X-Forwarded-Port: 443" 
