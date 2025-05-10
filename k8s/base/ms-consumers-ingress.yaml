@@ -5,17 +5,18 @@ metadata:
   namespace: default
   annotations:
     kubernetes.io/ingress.class: kong
-    konghq.com/preserve-host: "true"
+    konghq.com/preserve-host: "false"
     konghq.com/strip-path: "false"
     konghq.com/protocols: "http,https"
     konghq.com/plugins: "cors-plugin,request-transformer-plugin"
     konghq.com/override: "true"
+    konghq.com/route-type: "v0"
 spec:
   rules:
   - host: ms-consumers.local
     http:
       paths:
-      - path: /
+      - path: /api
         pathType: Prefix
         backend:
           service:
