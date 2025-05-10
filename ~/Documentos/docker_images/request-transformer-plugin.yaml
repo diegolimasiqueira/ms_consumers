@@ -1,0 +1,16 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: request-transformer-plugin
+  namespace: default
+plugin: request-transformer
+config:
+  add:
+    headers:
+    - "X-Forwarded-Proto: http"
+    - "X-Forwarded-Host: ms-consumers.local"
+    - "X-Forwarded-Port: 32167"
+    - "Host: ms-consumers.local"
+  replace:
+    headers:
+    - "Host: ms-consumers.local" 

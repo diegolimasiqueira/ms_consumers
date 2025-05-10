@@ -7,6 +7,7 @@ using HealthChecks.UI.Client;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,12 +26,33 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.ForwardLimit = null;
 });
 
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // Configure Kestrel
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.AllowSynchronousIO = false;
     options.AddServerHeader = false;
 });
+
+// Configure URLs based on environment
+if (builder.Environment.IsDevelopment())
+{
+    builder.WebHost.UseUrls("http://localhost:5000");
+}
+else
+{
+    builder.WebHost.UseUrls("http://0.0.0.0:80");
+}
 
 // Add Health Checks
 builder.Services.AddHealthChecks()
@@ -42,7 +64,7 @@ builder.Services.AddHealthChecksUI(setup =>
     setup.SetEvaluationTimeInSeconds(5);
     setup.MaximumHistoryEntriesPerEndpoint(10);
     setup.SetApiMaxActiveRequests(1);
-    setup.AddHealthCheckEndpoint("API", "http://localhost:80/health");
+    setup.AddHealthCheckEndpoint("API", "/health");
 })
 .AddInMemoryStorage();
 
@@ -74,6 +96,9 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// Use CORS
+app.UseCors();
+
 // Remover o redirecionamento HTTPS já que o Kong está lidando com isso
 // app.UseHttpsRedirection();
 
@@ -100,7 +125,5 @@ app.UseHealthChecksUI(options =>
 
 // Add global exception handler
 app.UseGlobalExceptionHandler();
-
-app.Urls.Add("http://0.0.0.0:80");
 
 app.Run();
