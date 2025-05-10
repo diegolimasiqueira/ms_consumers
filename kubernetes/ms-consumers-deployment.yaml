@@ -18,33 +18,41 @@ spec:
         image: ms-consumers:latest
         ports:
         - containerPort: 80
+          name: http
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Production"
-        - name: DatabaseSettings__Host
-          value: "192.168.100.17"
-        - name: DatabaseSettings__Database
-          value: "consumer"
-        - name: DatabaseSettings__Username
-          value: "easyprofind"
-        - name: DatabaseSettings__Password
-          value: "Master@123"
-        - name: DatabaseSettings__Port
-          value: "5432"
-        - name: DatabaseSettings__UseSsl
-          value: "false"
-        - name: DatabaseSettings__MaxRetryCount
-          value: "3"
-        - name: DatabaseSettings__CommandTimeout
-          value: "30"
-        - name: DatabaseSettings__UserId
-          value: "postgres"
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: host
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: port
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: database
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: password
         resources:
           limits:
             cpu: "500m"
             memory: "512Mi"
           requests:
-            cpu: "250m"
+            cpu: "200m"
             memory: "256Mi"
         readinessProbe:
           httpGet:

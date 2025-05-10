@@ -196,4 +196,15 @@ kubectl get pods -l app=ms-consumers
 
 # Mostrar os endpoints
 echo "Endpoints disponíveis:"
-minikube service list 
+minikube service list
+
+# Aplicar os secrets do banco de dados
+kubectl apply -f kubernetes/db-secrets.yaml
+
+# Aguardar o pod estar pronto
+echo "Aguardando o pod estar pronto..."
+kubectl wait --for=condition=ready pod -l app=ms-consumers --timeout=300s
+
+# Mostrar o status do deployment
+kubectl get deployment ms-consumers
+kubectl get pods -l app=ms-consumers 
