@@ -10,7 +10,8 @@ docker build -t ms-consumers:latest .
 
 # Carregar a imagem no Minikube
 echo "Carregando a imagem no Minikube..."
-minikube image load ms-consumers:latest
+eval $(minikube docker-env)
+docker build -t ms-consumers:latest .
 
 # Verificar se a imagem foi carregada
 echo "Verificando se a imagem foi carregada..."
